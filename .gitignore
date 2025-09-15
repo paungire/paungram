@@ -1,0 +1,12 @@
+go/tmp
+go/go.mod
+go/go.sum
+go/192.168.1.114+1-key.pem
+go/192.168.1.114+1.pem
+nuxt/192.168.1.114+1-key.pem
+nuxt/192.168.1.114+1.pem
+nuxt/node_modules
+postgres
+nuxt/.nuxt
+.DS_Store
+.env

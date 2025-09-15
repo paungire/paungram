@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  # nuxt:
+  #   build: ./nuxt
+  #   container_name: nuxt-app
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./nuxt:/app
+  #   command: sh -c "npm install && npm run dev"
+
+  postgres:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5432:5432
+
+  dbgate:
+    image: dbgate/dbgate
+    ports:
+      - 8765:3000
+    environment:
+      CONNECTION: "postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}"
+    depends_on:
+      - postgres
+
+  go:
+    build: ./go
+    container_name: go-webrtc
+    command: air -c air.toml
+    volumes:
+      - ./go:/webrtc # исходники
+    ports:
+      - "8080:8080"
+
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: livekit
+    restart: unless-stopped
+    command: >
+      --dev
+      --bind 0.0.0.0
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "9200-9250:9200-9250/udp"
+    environment:
+      LIVEKIT_API_KEY: devkey
+      LIVEKIT_API_SECRET: secret
+      LIVEKIT_REDIS_HOST: "redis:6379"
+      LIVEKIT_REGION: "local"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
