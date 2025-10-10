@@ -1,3 +1,9 @@
+<script>
+definePageMeta({
+	middleware: "un-auth",
+});
+</script>
+
 <template>
 	<div>
 		<div class="auth-container">

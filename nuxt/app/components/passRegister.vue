@@ -4,7 +4,7 @@ import { computed, ref, watchEffect } from "vue";
 const show = ref(false);
 
 // внешний v-model
-const password = defineModel<string>("password", { default: "" });
+const password = defineModel<string>({ default: "" });
 
 function checkStrength(str: string) {
 	const requirements = [

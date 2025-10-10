@@ -1,9 +1,3 @@
-<script>
-definePageMeta({
-	middleware: "auth",
-});
-</script>
-
 <template>
-	<div>профиль</div>
+	<div>profile</div>
 </template>

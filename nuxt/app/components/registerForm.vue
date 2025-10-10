@@ -25,18 +25,42 @@ export default {
 		};
 	},
 	methods: {
-		onSubmit(payload) {
+		async onSubmit(payload) {
 			if (this.$refs.passwordRef.score < 5) {
 				this.$refs.formRef.value.setErrors({ password: "Обязательное поле" });
 				return;
 			}
 
-			// TODO
-			console.log("Submitted", payload);
-			if (this.error) {
-				this.error = null;
-			} else {
-				this.error = "Ошибка входа, напишите на почту paungire@bk.ru";
+			try {
+				// Access to fetch at 'http://localhost:8080/api/register' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+				const response = await fetch(
+					"http://localhost:8080/api/auth/register",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							email: this.state.email,
+							password: this.state.password,
+						}),
+					}
+				);
+
+				if (response.ok) {
+					// Успешная регистрация
+					this.error = null;
+					console.log("Registration successful");
+					// Возможно, перенаправить на страницу входа или профиль
+					this.$router.push("/auth/");
+				} else {
+					// Ошибка от сервера
+					const errorData = await response.json();
+					this.error = errorData.message || "Ошибка регистрации";
+				}
+			} catch (error) {
+				console.error("Fetch error:", error);
+				this.error = "Ошибка сети, попробуйте позже";
 			}
 		},
 	},
@@ -79,7 +103,6 @@ export default {
 
 					<passRegister
 						ref="passwordRef"
-						:password="state.password"
 						v-model="state.password"
 					></passRegister>
 
@@ -95,8 +118,9 @@ export default {
 
 				<div class="text-sm text-center text-muted mt-2">
 					Регистрируясь, вы доверяете сервису свои данные и соглашаетесь с
-					<ULink to="/policy/" class="text-primary font-medium">правилами</ULink
-					>.
+					<ULink to="/policy/" class="text-primary font-medium">
+						правилами
+					</ULink>
 				</div>
 			</div>
 		</UPageCard>

@@ -1,5 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from "vue";
+import { useAuthStore } from "../stores/auth";
+const { $apiFetch } = useNuxtApp();
 
 const links = ref([
 	{

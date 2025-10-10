@@ -14,7 +14,13 @@
 	"dependencies": {
 		"@nuxt/icon": "^2.0.0",
 		"@nuxt/ui": "^4.0.0-alpha.1",
+		"@pinia/nuxt": "^0.11.2",
 		"@tailwindcss/typography": "^0.5.16",
-		"nuxt": "^4.1.1"
+		"nuxt": "^4.1.1",
+		"pinia": "^3.0.3",
+		"pinia-plugin-persistedstate": "^4.5.0"
+	},
+	"devDependencies": {
+		"nuxt-proxy-request": "^3.0.0"
 	}
 }

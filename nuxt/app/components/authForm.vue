@@ -21,13 +21,34 @@ export default {
 		};
 	},
 	methods: {
-		onSubmit(payload) {
+		async onSubmit(payload) {
 			// TODO
-			console.log("Submitted", payload);
-			if (this.error) {
-				this.error = null;
-			} else {
-				this.error = "Ошибка входа, напишите на почту paungire@bk.ru";
+			try {
+				fetch("/api/auth/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						email: this.state.email,
+						password: this.state.password,
+					}),
+				}).then(async (response) => {
+					const data = await response.json().catch(() => ({
+						message: "Ошибка авторизации",
+						status: response.status,
+					}));
+					if (response.ok) {
+						// Успешная авторизация
+						this.error = null;
+						useAuthStore().setToken(data.access_token, data.user_id);
+					} else {
+						// Ошибка от сервера
+						this.error = data.message || "Ошибка авторизации";
+					}
+				});
+			} catch (error) {
+				console.error(error);
 			}
 		},
 	},
@@ -71,7 +92,11 @@ export default {
 
 					<UFormField name="password" label="Пароль" required>
 						<template #hint>
-							<ULink to="/forgot/" class="text-primary font-medium"
+							<ULink
+								tabindex="-1"
+								as="button"
+								to="/forgot/"
+								class="text-primary font-medium"
 								>Забыли пароль?</ULink
 							>
 						</template>
@@ -84,6 +109,7 @@ export default {
 						>
 							<template #trailing>
 								<UButton
+									tabindex="-1"
 									color="neutral"
 									variant="link"
 									size="sm"

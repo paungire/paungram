@@ -2,7 +2,7 @@
 export default {
 	data() {
 		return {
-			socket: new WebSocket("wss://192.168.1.114:8080/ws"),
+			socket: new WebSocket("ws://localhost:8080/ws"),
 			pc: null,
 			peerId: null,
 			usersIds: ["1", "2"],
