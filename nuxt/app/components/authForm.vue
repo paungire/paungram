@@ -24,7 +24,7 @@ export default {
 		async onSubmit(payload) {
 			// TODO
 			try {
-				fetch("/api/auth/login", {
+				fetch("/api/v1/auth/login", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
