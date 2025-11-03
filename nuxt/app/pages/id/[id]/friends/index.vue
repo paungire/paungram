@@ -1,10 +1,15 @@
 <script setup>
 definePageMeta({
-	layout: "user", // имя layout-файла
+	layout: "user",
+	title: "Друзья",
 });
 
 // активный таб
-const activeTab = ref("online");
+const route = useRoute();
+const url = useRequestURL();
+
+const tab = url.searchParams.get("tab");
+const activeTab = ref(tab || "online");
 
 // имитация загрузки
 const isLoading = ref(true);
@@ -48,43 +53,51 @@ onMounted(() => {
 		isLoading.value = false;
 	}, 1500);
 });
+
+function changeTab(tab) {
+	activeTab.value = tab;
+	let url = new URL(window.location.href);
+	url.searchParams.set("tab", tab);
+	window.history.replaceState({}, "", url);
+}
 </script>
 
 <template>
-	<div>
+	<div class="flex flex-col gap-0.25 pr-2">
 		<!-- Tabs -->
-		<div class="flex items-center gap-3 mb-6">
-			<UButton
+		<div class="flex items-center gap-3 py-4 relative">
+			<button
 				:variant="activeTab === 'online' ? 'soft' : 'ghost'"
 				color="neutral"
-				@click="activeTab = 'online'"
+				@click="changeTab('online')"
 			>
 				В сети
-			</UButton>
-			<UButton
+			</button>
+			<button
 				:variant="activeTab === 'all' ? 'soft' : 'ghost'"
 				color="neutral"
-				@click="activeTab = 'all'"
+				@click="changeTab('all')"
 			>
 				Все
-			</UButton>
-			<UButton
+			</button>
+			<button
 				:variant="activeTab === 'add' ? 'soft' : 'solid'"
 				color="primary"
 				icon="i-lucide-user-plus"
-				@click="activeTab = 'add'"
+				@click="changeTab('add')"
 			>
 				Добавить в друзья
-			</UButton>
+			</button>
+			<stick passive="true" />
 		</div>
 
 		<!-- Search (только для первых двух табов) -->
 		<div v-if="activeTab !== 'add'">
-			<UInput
+			<input
 				placeholder="Поиск друзей..."
 				icon="i-lucide-search"
-				size="lg"
-				class="mb-6 w-full"
+				size="md"
+				class="py-4 w-full mb-0.25"
 			/>
 
 			<!-- Список друзей -->
@@ -97,7 +110,7 @@ onMounted(() => {
 		<!-- Добавить друга -->
 		<div v-else>
 			<h2 class="text-xl font-bold mb-4">Добавить друга</h2>
-			<UInput
+			<input
 				placeholder="Введите никнейм или ID..."
 				icon="i-lucide-user-search"
 				size="lg"

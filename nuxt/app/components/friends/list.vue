@@ -12,7 +12,7 @@ const props = defineProps(["friends", "isLoading"]);
 		</friends-card>
 	</div>
 	<!-- TODO поменять на прелоадер потому что скелетон хуета -->
-	<div v-else class="columns-1 sm:columns-1 w-full">
-		<friends-plug v-for="n in 2" :key="n"></friends-plug>
+	<div v-else>
+		<Icon name="mingcute:loading-fill" size="80" class="m-auto spin"></Icon>
 	</div>
 </template>

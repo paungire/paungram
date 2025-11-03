@@ -1,6 +1,17 @@
 export default defineNuxtConfig({
 	compatibilityDate: "2025-09-11",
-	css: ["~/assets/css/main.css"],
+	css: ["@/assets/css/global.css"],
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: `
+            @import "@/assets/css/_variables.scss";
+          `,
+				},
+			},
+		},
+	},
 	modules: [
 		"@nuxt/ui",
 		"@nuxt/icon",
@@ -22,6 +33,9 @@ export default defineNuxtConfig({
 		],
 	},
 	ssr: true,
+	ui: {
+		theme: false,
+	},
 	// devServer: {
 	// 	https: {
 	// 		key: "./192.168.1.114+1-key.pem",

@@ -21,6 +21,9 @@
 		"pinia-plugin-persistedstate": "^4.5.0"
 	},
 	"devDependencies": {
-		"nuxt-proxy-request": "^3.0.0"
+		"nuxt-proxy-request": "^3.0.0",
+		"sass": "^1.93.2",
+		"sass-loader": "^16.0.6",
+		"vite-plugin-style-import": "^2.0.0"
 	}
 }

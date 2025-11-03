@@ -9,7 +9,7 @@ const itemsFooter = ref([
 </script>
 
 <template>
-	<UApp>
+	<UApp class="app">
 		<UHeader title="паунграм" to="/" mode="drawer">
 			<template #right>
 				<UColorModeButton />
@@ -45,3 +45,15 @@ const itemsFooter = ref([
 		</UFooter>
 	</UApp>
 </template>
+
+<style lang="scss">
+.app {
+	color: $black;
+	background-color: $white;
+	* {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+			Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+			sans-serif;
+	}
+}
+</style>

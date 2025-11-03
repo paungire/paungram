@@ -1,26 +1,14 @@
-<script setup>
-const toast = useToast();
-
-function showSuccess() {
-	toast.add({
-		title: "Успешно!",
-		description: "Данные сохранены",
-		color: "success",
-	});
-}
-
-function showError() {
-	toast.add({
-		title: "Ошибка",
-		description: "Не удалось сохранить данные",
-		color: "error",
-	});
-}
-</script>
-
 <template>
-	<div>
-		<UButton color="success" @click="showSuccess">Показать успех</UButton>
-		<UButton color="error" @click="showError">Показать ошибку</UButton>
+	<div class="text">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime provident
+		blanditiis enim ullam, corrupti molestias, fugiat cum voluptate aperiam
+		expedita eligendi esse maiores placeat ipsam quos iste at? Aliquid, nobis.
 	</div>
 </template>
+
+<style lang="scss">
+.text {
+	color: $black;
+	background: $white;
+}
+</style>

@@ -7,7 +7,15 @@
 		Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-:root {
-	--base-hsl: 220 15% 20%;
-	--border: color-mix(in oklab, hsl(var(--base-hsl) / 0.2), white 20%);
+.spin {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

@@ -26,7 +26,7 @@ function closeMenu() {
 		class="friend-card flex items-center justify-between p-3 hover:bg-muted max-h-16 rounded-2xl cursor-pointer transition break-inside-avoid bg-default not-last:mb-0.25 relative"
 	>
 		<div class="flex items-center gap-3">
-			<UAvatar :src="friend.avatar" size="lg" />
+			<img :src="friend.avatar" size="lg" />
 			<div>
 				<p class="font-medium">{{ friend.name }}</p>
 				<p
@@ -41,11 +41,11 @@ function closeMenu() {
 			</div>
 		</div>
 		<div class="flex items-center gap-2 relative">
-			<btnSoft text="Сообщение" icon="mingcute:message-3-fill" />
-			<btnSoft text="Позвонить" icon="mingcute:phone-fill" />
-			<btnSoft
-				text="Еще"
+			<btn-ai icon="mingcute:message-3-fill" color="muted" />
+			<btn-ai icon="mingcute:phone-fill" color="muted" />
+			<btn-ai
 				icon="mingcute:more-2-fill"
+				color="muted"
 				@click="toggleMenu(friend.id)"
 			/>
 			<div
@@ -53,42 +53,25 @@ function closeMenu() {
 				class="menu absolute right-0 top-0 rounded-lg shadow-lg z-50 bg-[var(--ui-bg)] flex gap-1 p-2"
 				v-click-outside="closeMenu"
 			>
-				<UButton
-					variant="ghost"
-					class="w-full justify-start"
-					@click="closeMenu"
-				>
+				<button variant="ghost" class="w-full justify-start" @click="closeMenu">
 					Пригласить
-				</UButton>
-				<UButton
+				</button>
+				<button
 					variant="ghost"
 					color="error"
 					class="w-full justify-start"
 					@click="closeMenu"
 				>
 					Удалить
-				</UButton>
+				</button>
 			</div>
 		</div>
-		<div class="stick"></div>
+		<stick></stick>
 	</div>
 </template>
 
 <style scoped>
 .hover\:opacity-100:hover {
 	opacity: 1 !important;
-}
-.stick {
-	position: absolute;
-	background-color: transparent;
-	width: calc(100% - var(--spacing) * 6);
-	height: 0.5px;
-	bottom: -1px;
-	left: calc(var(--spacing) * 3);
-	transition: background-color 0.2s ease;
-}
-.friend-card:not(:last-child):not(:hover):not(:has(+ .friend-card:hover))
-	.stick {
-	background-color: var(--border);
 }
 </style>
